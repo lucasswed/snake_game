@@ -17,7 +17,7 @@ BLUE = (0,0,255)
 
 # Snake parameters
 SQUARE_SIZE = 20
-VELOCITY = 15
+VELOCITY = 10
 
 def generate_food():
   food_x = round(random.randrange(0, WIDTH - SQUARE_SIZE) / 20.0) * 20.0
@@ -38,22 +38,25 @@ def draw_score(score):
 
 def select_velocity(key, x, y, last_key):
   x_vel, y_vel = x, y
-  if key == 115 and last_key != 119: #S
+  if key == pg.K_ESCAPE:
+    pg.quit()
+    quit()
+  if (key == pg.K_s or key == pg.K_DOWN) and last_key != 119 and last_key != pg.K_UP: #S
     y_vel = SQUARE_SIZE
     x_vel = 0
-    last_key = 115
-  elif key == 119 and last_key != 115: #W
+    last_key = key
+  elif (key == pg.K_w or key == pg.K_UP) and last_key != 115 and last_key != pg.K_DOWN: #W
     y_vel = -SQUARE_SIZE
     x_vel = 0
-    last_key = 119
-  elif key == 100 and last_key != 97: #D
+    last_key = key
+  elif (key == pg.K_d or key == pg.K_RIGHT) and last_key != pg.K_a and key != pg.K_LEFT: #D
     x_vel = SQUARE_SIZE
     y_vel = 0
-    last_key = 100
-  elif key == 97 and last_key != 100: #A
+    last_key = key
+  elif (key == pg.K_a or key == pg.K_LEFT) and last_key != pg.K_d and key != pg.K_RIGHT: #A
     x_vel = -SQUARE_SIZE
     y_vel = 0
-    last_key = 97
+    last_key = key
   return x_vel, y_vel, last_key
 
 def game():
